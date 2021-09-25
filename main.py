@@ -1,4 +1,5 @@
-
+import threading
+import time
 from tkinter import *
 
 
@@ -22,7 +23,33 @@ n8 = Button(r,text="2",bg = 'white')
 n8.place(x=110,y=200,width=70,height=70)
 n9 = Button(r,text="3",bg = 'white')
 n9.place(x=200,y=200,width=70,height=70)
-ns = Button(r,text="开始")
+
+p = [n1,n2,n3,n4,n6,n7,n8,n9]
+isloop = False
+run = False
+def round():
+    i=0
+    while 1:
+        time.sleep(0.06)
+        for j in p:
+            j['bg'] = 'white'
+        p[i]['bg'] = 'red'
+        i+=1
+        if i>7:
+            i=0
+        if run == True:
+            continue
+        else:
+            break
+def start():
+    global isloop
+    global run
+    t = threading.Thread(target=round)
+    t.start()
+    isloop = True
+    run = True
+
+ns = Button(r,text="开始",command=start)
 ns.place(x=70,y=300,width=60,height=40)
 ne = Button(r,text="结束")
 ne.place(x=160,y=300,width=60,height=40)
